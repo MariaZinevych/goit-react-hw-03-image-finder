@@ -1,9 +1,13 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 
-export const ImageGallery = () => {
+export const ImageGallery = ({ image }) => {
   return (
-    <ul>
-      <ImageGalleryItem />
-    </ul>
+    <>
+      <ul>
+        {image.map(im => (
+          <ImageGalleryItem key={im.id} image={im} />
+        ))}
+      </ul>
+    </>
   );
 };

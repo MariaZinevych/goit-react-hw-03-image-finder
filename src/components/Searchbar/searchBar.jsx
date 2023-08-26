@@ -5,6 +5,10 @@ export const SearchBar = ({ onSubmit }) => {
         <form
           onSubmit={e => {
             e.preventDefault();
+            if (e.target.elements.query.value.trim() === '') {
+              alert('Enter name');
+              return;
+            }
             onSubmit(e.target.elements.query.value);
             e.target.reset();
           }}

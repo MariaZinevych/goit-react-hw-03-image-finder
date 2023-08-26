@@ -10,6 +10,8 @@ export class App extends Component {
     query: '',
     image: [],
     page: 1,
+    isloading: false,
+    error: null,
   };
 
   changeQuery = newQuery => {
@@ -26,7 +28,7 @@ export class App extends Component {
       prevState.page !== this.state.page
     ) {
       const pixabay = await FetchQuery(this.state.query, this.state.page);
-      this.setState({ image: pixabay });
+      this.setState({ image: pixabay.hits });
     }
   }
 
@@ -38,7 +40,7 @@ export class App extends Component {
     return (
       <>
         <SearchBar onSubmit={this.changeQuery} />
-        <ImageGallery images={this.state.image} />
+        <ImageGallery image={this.state.image} />
         <Button onClick={this.handleLoadMore} />
         <GlobalStyle />
       </>
