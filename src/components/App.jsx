@@ -25,7 +25,7 @@ export class App extends Component {
       prevState.query !== this.state.query ||
       prevState.page !== this.state.page
     ) {
-      const pixabay = await FetchQuery();
+      const pixabay = await FetchQuery(this.state.query, this.state.page);
       this.setState({ image: pixabay });
     }
   }
