@@ -8,8 +8,3 @@ export const FetchQuery = async (query, page) => {
   );
   return responce.data;
 };
-
-export const normalizedImages = imagesArray =>
-  imagesArray.map(({ id, tags, webformatURL, largeImageURL }) => {
-    return { id, tags, webformatURL, largeImageURL };
-  });

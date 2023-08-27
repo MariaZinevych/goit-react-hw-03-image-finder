@@ -4,6 +4,7 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Component } from 'react';
 import { Button } from './Button/button';
 import { FetchQuery } from 'API';
+import { Loader } from './Loader/Loader';
 
 export class App extends Component {
   state = {
@@ -27,8 +28,9 @@ export class App extends Component {
       prevState.query !== this.state.query ||
       prevState.page !== this.state.page
     ) {
+      this.setState({ isloading: true });
       const pixabay = await FetchQuery(this.state.query, this.state.page);
-      this.setState({ image: pixabay.hits });
+      this.setState({ image: pixabay.hits, isloading: false });
     }
   }
 
@@ -40,7 +42,13 @@ export class App extends Component {
     return (
       <>
         <SearchBar onSubmit={this.changeQuery} />
-        <ImageGallery image={this.state.image} />
+
+        {this.state.isloading ? (
+          <Loader />
+        ) : (
+          <ImageGallery image={this.state.image} />
+        )}
+
         <Button onClick={this.handleLoadMore} />
         <GlobalStyle />
       </>
