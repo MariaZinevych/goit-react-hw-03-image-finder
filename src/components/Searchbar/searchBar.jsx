@@ -1,8 +1,10 @@
+import { But, Form, Header, Input } from './Searchbar.styled';
+
 export const SearchBar = ({ onSubmit }) => {
   return (
     <>
-      <header>
-        <form
+      <Header>
+        <Form
           onSubmit={e => {
             e.preventDefault();
             if (e.target.elements.query.value.trim() === '') {
@@ -13,19 +15,13 @@ export const SearchBar = ({ onSubmit }) => {
             e.target.reset();
           }}
         >
-          <button type="submit">
+          <But type="submit">
             <span>Search</span>
-          </button>
+          </But>
 
-          <input
-            type="text"
-            name="query"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-          />
-        </form>
-      </header>
+          <Input type="text" name="query" autoComplete="off" autoFocus />
+        </Form>
+      </Header>
     </>
   );
 };

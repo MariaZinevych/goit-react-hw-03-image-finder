@@ -1,13 +1,16 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
+import { Modal } from 'components/Modal/modal.styled';
+import { List } from './ImageGallery.styled';
 
 export const ImageGallery = ({ image }) => {
   return (
     <>
-      <ul>
+      <List>
         {image.map(im => (
           <ImageGalleryItem key={im.id} image={im} />
         ))}
-      </ul>
+      </List>
+      <Modal image={image.largeImageURL} />
     </>
   );
 };
