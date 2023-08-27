@@ -28,13 +28,21 @@ export class App extends Component {
       prevState.page !== this.state.page
     ) {
       this.setState({ isloading: true });
+
       const pixabay = await FetchQuery(this.state.query, this.state.page);
+
       this.setState({ image: pixabay.hits, isloading: false });
+
+      if (pixabay.hits.length === 0) {
+        return alert('Sorry image not found...');
+      }
     }
   }
 
   handleLoadMore = () => {
-    this.setState(prevState => ({ page: prevState.page + 1 }));
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
   };
 
   render() {
