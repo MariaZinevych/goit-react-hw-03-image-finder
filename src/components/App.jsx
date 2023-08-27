@@ -12,7 +12,6 @@ export class App extends Component {
     image: [],
     page: 1,
     isloading: false,
-    error: null,
   };
 
   changeQuery = newQuery => {
@@ -48,8 +47,10 @@ export class App extends Component {
         ) : (
           <ImageGallery image={this.state.image} />
         )}
+        {this.state.image.length > 0 && (
+          <Button onClick={this.handleLoadMore} />
+        )}
 
-        <Button onClick={this.handleLoadMore} />
         <GlobalStyle />
       </>
     );
