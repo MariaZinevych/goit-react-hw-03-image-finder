@@ -16,7 +16,7 @@ export class App extends Component {
 
   changeQuery = newQuery => {
     this.setState({
-      query: newQuery,
+      query: `${Date.now()}/${newQuery}`,
       image: [],
       page: 1,
     });
@@ -28,10 +28,14 @@ export class App extends Component {
       prevState.page !== this.state.page
     ) {
       this.setState({ isloading: true });
+      const indexOfSlash = this.state.query.indexOf('/');
+      const queryAfterSlash = this.state.query.slice(indexOfSlash + 1);
+      const pixabay = await FetchQuery(queryAfterSlash, this.state.page);
 
-      const pixabay = await FetchQuery(this.state.query, this.state.page);
-
-      this.setState({ image: pixabay.hits, isloading: false });
+      this.setState(prevState => ({
+        image: [...prevState.image, ...pixabay.hits],
+        isloading: false,
+      }));
 
       if (pixabay.hits.length === 0) {
         return alert('Sorry image not found...');
