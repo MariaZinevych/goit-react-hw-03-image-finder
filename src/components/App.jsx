@@ -12,6 +12,7 @@ export class App extends Component {
     image: [],
     page: 1,
     isloading: false,
+    totalPages: 0,
   };
 
   changeQuery = newQuery => {
@@ -19,6 +20,7 @@ export class App extends Component {
       query: `${Date.now()}/${newQuery}`,
       image: [],
       page: 1,
+      totalPages: 0,
     });
   };
 
@@ -35,6 +37,7 @@ export class App extends Component {
       this.setState(prevState => ({
         image: [...prevState.image, ...pixabay.hits],
         isloading: false,
+        totalPages: Math.ceil(pixabay.totalHits / 12),
       }));
 
       if (pixabay.hits.length === 0) {
@@ -59,9 +62,9 @@ export class App extends Component {
         ) : (
           <ImageGallery image={this.state.image} />
         )}
-        {this.state.image.length > 0 && (
-          <Button onClick={this.handleLoadMore} />
-        )}
+        {this.state.image.length > 0 &&
+          this.state.totalPages !== this.state.page &&
+          !this.state.isloading && <Button onClick={this.handleLoadMore} />}
 
         <GlobalStyle />
       </>
